@@ -2,7 +2,7 @@ package StudyEffectiveJava8.chapter2.item3.inflearn;
 
 import java.io.Serializable;
 
-public class Elvis implements IElvis, Serializable {
+public class Elvis implements IElvis, Serializable, Singer {
 
     public static final Elvis INSTANCE = new Elvis();
     private static boolean created;
