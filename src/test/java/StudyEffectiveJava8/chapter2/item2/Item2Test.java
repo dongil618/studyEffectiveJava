@@ -31,19 +31,32 @@ public class Item2Test {
                 .age(28)
                 .build();
 
+        MemberLombokDto memberLombokDto1 = MemberLombokDto.builder(1, "kdi618@cowave.kr")
+                .name("name")
+                .age(28)
+                .build();
+
         log.info("memberDto={}", memberDto);
         log.info("memberDtoWithoutNew={}", memberDtoWithoutNew);
         log.info("memberLombokDto={}", memberLombokDto);
+        log.info("memberLombokDto1={}", memberLombokDto1);
     }
 
     @Test
     @DisplayName("이펙티브 자바 - 피자 코드")
     public void pizzaCodeTest() {
+//        // 타입 캐스팅 필요
+//        NewYorkPizza newYorkPizza = (NewYorkPizza) new NewYorkPizza.Builder(NewYorkPizza.Size.SMALL)
+//                .addTopping(Pizza.Topping.SAUSAGE)
+//                .addTopping(Pizza.Topping.ONION)
+//                .build();
+
         NewYorkPizza newYorkPizza = new NewYorkPizza.Builder(NewYorkPizza.Size.SMALL)
                 .addTopping(Pizza.Topping.SAUSAGE)
                 .addTopping(Pizza.Topping.ONION)
                 .build();
 
+        // Pizza가 공변 반환 타이핑이 아닐 경우  Calzone의 경우 Calzone의 Builder가 아니기 때문에 .sauceInside() 메서드를 사용할 수 없어 컴파일 에러 발생.
         Calzone calzone = new Calzone.Builder()
                 .addTopping(Pizza.Topping.HAM)
                 .sauceInside()
