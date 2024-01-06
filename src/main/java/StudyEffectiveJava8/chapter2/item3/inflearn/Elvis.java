@@ -1,9 +1,18 @@
 package StudyEffectiveJava8.chapter2.item3.inflearn;
 
-public class Elvis implements IElvis {
+import java.io.Serializable;
+
+public class Elvis implements IElvis, Serializable {
 
     public static final Elvis INSTANCE = new Elvis();
-    private Elvis() {}
+    private static boolean created;
+    private Elvis() {
+        if(created) {
+            throw new UnsupportedOperationException("can't be created by contructor");
+        }
+
+        created = true;
+    }
     public static Elvis getInstance() { return INSTANCE; }
 
     public void leaveTheBuilding() {
@@ -22,5 +31,10 @@ public class Elvis implements IElvis {
     @Override
     public void sing() {
         System.out.println("my way~~~");
+    }
+
+    // 아래 코드 추가시 ElvisSerialization가 true로 출력됨.
+    private Object readResolve() {
+        return INSTANCE;
     }
 }
